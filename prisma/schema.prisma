@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Divisi {
+  id        String      @id @default(uuid())
+  nama      String      @unique
+  deskripsi String
+  jobDesc   String
+  Subdivisi Subdivisi[]
+}
+
+model Subdivisi {
+  id       String @id @default(uuid())
+  idDivisi String @unique
+  divisi   Divisi @relation(fields: [idDivisi], references: [id], onDelete: Cascade)
+  hr       HR?
+}
+
+model HR {
+  id          String      @id @default(uuid())
+  idSubdivisi String      @unique
+  subdivisi   Subdivisi   @relation(fields: [idSubdivisi], references: [idDivisi], onDelete: Cascade)
+  contact     ContactHR[]
+}
+
+model ContactHR {
+  id          String       @id @default(uuid())
+  idHR        String       @unique
+  hr          HR           @relation(fields: [idHR], references: [id], onDelete: Cascade)
+  contactWA   ContactWA?
+  contactLine ContactLine?
+}
+
+model ContactWA {
+  idContact String    @unique
+  contact   ContactHR @relation(fields: [idContact], references: [id], onDelete: Cascade)
+}
+
+model ContactLine {
+  idContact String    @unique
+  contact   ContactHR @relation(fields: [idContact], references: [id], onDelete: Cascade)
+}
