@@ -21,7 +21,7 @@ model Divisi {
 
 model Subdivisi {
   id        String @id @default(uuid())
-  idDivisi  String @unique
+  idDivisi  String
   divisi    Divisi @relation(fields: [idDivisi], references: [id], onDelete: Cascade)
   hr        HR?
   nama      String
@@ -32,7 +32,7 @@ model Subdivisi {
 model HR {
   id          String      @id @default(uuid())
   idSubdivisi String      @unique
-  subdivisi   Subdivisi   @relation(fields: [idSubdivisi], references: [idDivisi], onDelete: Cascade)
+  subdivisi   Subdivisi   @relation(fields: [idSubdivisi], references: [id], onDelete: Cascade)
   contact     ContactHR[]
   nama        String
 }
@@ -54,5 +54,5 @@ model ContactWA {
 model ContactLine {
   idContact String    @unique
   contact   ContactHR @relation(fields: [idContact], references: [id], onDelete: Cascade)
-  username  Int       @unique
+  username  String    @unique
 }
