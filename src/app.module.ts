@@ -5,6 +5,7 @@ import { DatabaseModule } from './database/database.module';
 import { DivisiModule } from './divisi/divisi.module';
 import { Throttle, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { SubdivisiModule } from './subdivisi/subdivisi.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { APP_GUARD } from '@nestjs/core';
           ttl: 1000,
           limit: 3,
         },
-      ])
+      ]),
+    SubdivisiModule
   ],
   controllers: [AppController],
   providers: [

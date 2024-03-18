@@ -16,23 +16,25 @@ datasource db {
 model Divisi {
   id        String      @id @default(uuid())
   nama      String      @unique
-  deskripsi String
-  jobDesc   String
   Subdivisi Subdivisi[]
 }
 
 model Subdivisi {
-  id       String @id @default(uuid())
-  idDivisi String @unique
-  divisi   Divisi @relation(fields: [idDivisi], references: [id], onDelete: Cascade)
-  hr       HR?
+  id        String @id @default(uuid())
+  idDivisi  String
+  divisi    Divisi @relation(fields: [idDivisi], references: [id], onDelete: Cascade)
+  hr        HR?
+  nama      String
+  deskripsi String
+  jobDesc   String
 }
 
 model HR {
   id          String      @id @default(uuid())
   idSubdivisi String      @unique
-  subdivisi   Subdivisi   @relation(fields: [idSubdivisi], references: [idDivisi], onDelete: Cascade)
+  subdivisi   Subdivisi   @relation(fields: [idSubdivisi], references: [id], onDelete: Cascade)
   contact     ContactHR[]
+  nama        String
 }
 
 model ContactHR {
@@ -46,9 +48,11 @@ model ContactHR {
 model ContactWA {
   idContact String    @unique
   contact   ContactHR @relation(fields: [idContact], references: [id], onDelete: Cascade)
+  nomor     Int       @unique
 }
 
 model ContactLine {
   idContact String    @unique
   contact   ContactHR @relation(fields: [idContact], references: [id], onDelete: Cascade)
+  username  String    @unique
 }
