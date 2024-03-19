@@ -13,7 +13,32 @@ export class DivisiService {
   }
 
   async findAll() {
-    return this.databaseService.divisi.findMany()
+    return this.databaseService.divisi.findMany({
+      include: {
+        Subdivisi: {
+          include: {
+            hr: {
+              include: {
+                contact: {
+                  include: {
+                    contactWA: {
+                      select: {
+                        nomor: true
+                      }
+                    },
+                    contactLine: {
+                      select: {
+                        username: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    })
   }
 
   async findOne(id: string) {
