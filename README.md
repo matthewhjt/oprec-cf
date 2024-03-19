@@ -1,3 +1,12 @@
+### Cara menjalankan
+
+1. Clone github repository ke local
+2. Jalankan npm install
+3. Setup file .env seperti .env.example, hanya perlu DATABASE_URL
+4. Inisiasi prisma
+5. Lakukan migrasi
+6. Jalankan aplikasi dengan npm run start:dev
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
